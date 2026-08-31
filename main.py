@@ -22,3 +22,7 @@ def createEndpoint(endpoint_input : EndpointInput, db : Session = Depends(get_db
 @app.put("/endpoint/update/{endpoint_id}", response_model = EndpointResponse)
 def updateEndpoint(endpoint_input : EndpointInput, endpoint_id : int ,db : Session = Depends(get_db)):
     return update_endpoint(db, endpoint_input, endpoint_id)
+
+@app.delete("/endpoint/delete/{endpoint_id}")
+def deleteEndpoint(endpoint_id : int, db : Session = Depends(get_db)):
+    return delete_endpoint(db, endpoint_id)
