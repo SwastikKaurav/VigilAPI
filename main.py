@@ -7,7 +7,7 @@ from database_models import Endpoint, PingResult
 
 app = FastAPI()
 
-@app.get("/", response_model = EndpointResponse)
+@app.get("/endpoint", response_model = EndpointResponse)
 def getAllEndpoint(db : Session = Depends(get_db)):
     return get_all_endpoints(db)
 
@@ -18,3 +18,7 @@ def getEndpoint(endpoint_id : int, db : Session = Depends(get_db)):
 @app.post("/endpoint/create", response_model = EndpointResponse)
 def createEndpoint(endpoint_input : EndpointInput, db : Session = Depends(get_db)):
     return create_endpoint(endpoint_input, db)
+
+@app.put("/endpoint/update/{endpoint_id}", response_model = EndpointResponse)
+def updateEndpoint(endpoint_input : EndpointInput, endpoint_id : int ,db : Session = Depends(get_db)):
+    return update_endpoint(db, endpoint_input, endpoint_id)
