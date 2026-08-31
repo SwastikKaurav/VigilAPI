@@ -6,6 +6,11 @@ from models import EndpointResponse, PingResultResponse
 
 app = FastAPI()
 
-@app.get("/",response_model = EndpointResponse)
+@app.get("/", response_model = EndpointResponse)
 def get_endpoints(db : Session = Depends(get_db)):
     return get_all_endpoints(db)
+
+@app.get("/{endpoint_id}", response_model = EndpointResponse)
+def get_endpoint(endpoint_id : int, db : Session = Depends(get_db)):
+    return get_endpoint(db, endpoint_id)
+
