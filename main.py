@@ -17,7 +17,7 @@ def getEndpoint(endpoint_id : int, db : Session = Depends(get_db)):
 
 @app.post("/endpoint/create", response_model = EndpointResponse)
 def createEndpoint(endpoint_input : EndpointInput, db : Session = Depends(get_db)):
-    return create_endpoint(endpoint_input, db)
+    return create_endpoint(db, endpoint_input)
 
 @app.put("/endpoint/update/{endpoint_id}", response_model = EndpointResponse)
 def updateEndpoint(endpoint_input : EndpointInput, endpoint_id : int ,db : Session = Depends(get_db)):
@@ -26,3 +26,4 @@ def updateEndpoint(endpoint_input : EndpointInput, endpoint_id : int ,db : Sessi
 @app.delete("/endpoint/delete/{endpoint_id}")
 def deleteEndpoint(endpoint_id : int, db : Session = Depends(get_db)):
     return delete_endpoint(db, endpoint_id)
+
