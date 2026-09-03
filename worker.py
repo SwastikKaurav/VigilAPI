@@ -15,7 +15,8 @@ async def ping_all_endpoints_infinitely():
                 response_time = response.elapsed.total_seconds()   
                 checked_at = datetime.now()
                 create_ping_result(db, endpoint.id, status_code, response_time, checked_at)
-            except requests.exceptions.RequestException:
+                
+            except requests.exceptions.RequestException as e:
                 status_code = 0
                 response_time = None
                 checked_at = datetime.now()
