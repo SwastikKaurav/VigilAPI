@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import endpoints
+from routers import endpoints, pings
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -13,3 +13,4 @@ app.add_middleware(
 )
 
 app.include_router(endpoints.router)
+app.include_router(pings.router)
