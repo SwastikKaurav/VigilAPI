@@ -1,25 +1,28 @@
 import asyncio
 import requests
-from fastapi import APIRouter
-import datetime
-from database import get_db
-from sqlalchemy.orm import Session, sessionmaker
-from crud import get_all_endpoints
-
-SessionLocal = sessionmaker()
-
-router =    APIRouter()
+from datetime import datetime
+from database import SessionLocal
+from crud import get_all_endpoints, create_ping_result
 
 async def ping_all_endpoints_infinitely():
     while True:
-        endpoints = get_all_endpoints()
+        db = SessionLocal()
+        endpoints = get_all_endpoints(db)
         for endpoint in endpoints:
-            response = requests.get("url")
-            status_code = response.status_code
-            response_time = response.elapsed.total_seconds()
-            checked_at = datetime.now()
+            try:
+                response = requests.get(endpoint.url, timeout=10)
+                status_code = response.status_code
+                response_time = response.elapsed.total_seconds()   
+                checked_at = datetime.now()
+                create_ping_result(db, endpoint.id, status_code, response_time, checked_at)
+            except requests.exceptions.RequestException:
+                status_code = 0
+                response_time = None
+                checked_at = datetime.now()
+                create_ping_result(db, endpoint.id, status_code, response_time, checked_at)
+            db.close()
+            
         await asyncio.sleep(300)
 
-@router.on_event("/startup")
 async def start_worker():
     asyncio.create_task(ping_all_endpoints_infinitely())
