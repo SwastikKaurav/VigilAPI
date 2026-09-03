@@ -42,9 +42,13 @@ def delete_endpoint(db : Session, endpoint_id : int):
     db.commit()
     return {"status_code" : 204, "detail" : "No Content"}
 
-def create_ping_result(db: Session, endpoint_id: int, status_code: int, response_time: float, checked_at: datetime):
-    db_ping_result = PingResult(endpoint_id = endpoint_id, status_code = status_code, response_time = response_time, checked_at = checked_at)
+def create_ping_result(db: Session, id: int, status_code: int, response_time: float, checked_at: datetime):
+    db_ping_result = PingResult(endpoint_id = id, status_code = status_code, response_time = response_time, checked_at = checked_at)
     db.add(db_ping_result)
     db.commit()
     db.refresh(db_ping_result)
+    return db_ping_result
+
+def get_pings_of_endpoint(db : Session, endpoint_id : int):
+    db_ping_result =  db.query(PingResult).filter(PingResult.endpoint_id == endpoint_id).order_by(PingResult.checked_at).all()
     return db_ping_result
