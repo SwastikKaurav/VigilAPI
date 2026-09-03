@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routers import endpoints, pings
 from fastapi.middleware.cors import CORSMiddleware
+from worker import start_worker
 
 app = FastAPI()
 
@@ -14,3 +15,7 @@ app.add_middleware(
 
 app.include_router(endpoints.router)
 app.include_router(pings.router)
+
+@app.on_event("startup")
+async def on_start():
+    await start_worker()
