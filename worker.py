@@ -21,8 +21,8 @@ async def ping_all_endpoints_infinitely():
                 response_time = None
                 checked_at = datetime.now()
                 create_ping_result(db, endpoint.id, status_code, response_time, checked_at)
-            db.close()
             
+        db.close()    
         await asyncio.sleep(300)
 
 async def start_worker():
