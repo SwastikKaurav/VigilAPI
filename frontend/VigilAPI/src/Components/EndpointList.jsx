@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { getEndpoints } from "../api/endpoints";    
+import { getEndpoints } from "../api/endpoints";  
+import { Link } from "react-router-dom";  
 
 export default function EndpointList(){
     let [endpoints, setEndpoint] = useState([]);
@@ -29,9 +30,11 @@ export default function EndpointList(){
             <ul>
                 {endpoints.map((endpoint) => (
                     <li key={endpoint.id}>
-                        <p>{endpoint.name}</p>
-                        <p>{endpoint.url}</p>
-                        <p>{endpoint.ping_interval}</p>
+                        <Link to={`/endpoints/${endpoint.id}`}>
+                            <p>{endpoint.name}</p>
+                            <p>{endpoint.url}</p>
+                            <p>{endpoint.ping_interval}</p>
+                        </Link>
                     </li>   
                 ))}
             </ul>
