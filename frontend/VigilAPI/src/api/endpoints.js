@@ -20,8 +20,3 @@ export async function getPings(endpoint_id){
     }
 }
 
-async function pings(){
-    let data = await getPings()
-    console.log(data)
-}
-pings()

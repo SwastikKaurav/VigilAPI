@@ -8,7 +8,6 @@ export default function App(){
     <Routes>
       <Route path="/" element={<Dashboard/>}/>
       <Route path="/endpoints/:id" element={<DetailPage/>}/>
-      
       <Route path="*" element={<NotFound/>}/>
     </Routes>
   )

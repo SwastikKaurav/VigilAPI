@@ -17,6 +17,6 @@ class PingResultResponse(BaseModel):
     model_config = {"from_attributes": True}
     id:int
     endpoint_id:int
-    status_code:int
-    response_time:float
+    status_code:int | None
+    response_time:float | None
     checked_at:datetime
