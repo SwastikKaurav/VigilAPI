@@ -31,3 +31,18 @@ export async function getEndpointById(endpoint_id){
     }
 }
 
+export async function createEndpoint(data){
+    let response = await fetch("http://localhost:8000/endpoints/", {
+        method: "POST",
+        headers: "application/json",
+        body: JSON.stringify(data)
+    })
+    if(response.ok){
+        let response_data = await response.json();
+        return response_data;
+    }
+    else{
+        throw new Error(response.status)
+    }
+}
+
