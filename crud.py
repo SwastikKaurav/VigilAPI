@@ -52,3 +52,7 @@ def create_ping_result(db: Session, id: int, status_code: int, response_time: fl
 def get_pings_of_endpoint(db : Session, endpoint_id : int):
     db_ping_result =  db.query(PingResult).filter(PingResult.endpoint_id == endpoint_id).order_by(PingResult.checked_at).all()
     return db_ping_result
+
+def get_all_pings(db : Session):
+    db_pings_result = db.query(PingResult).all()
+    return db_pings_result
