@@ -5,6 +5,7 @@ export default function UpdateEndpointModal({endpoint, onEndpointUpdated}){
     let [name, setName] = useState(endpoint.name);
     let [url, setUrl] = useState(endpoint.url);
     let [pingInterval, setPingInterval] = useState(endpoint.ping_interval);
+    let [isEditing, setIsEditing] = useState(false);
     
     function handleNameChange(e){
         setName(e.target.value);
@@ -21,12 +22,24 @@ export default function UpdateEndpointModal({endpoint, onEndpointUpdated}){
     async function handleSubmit(e){
         e.preventDefault();
         let data = {"name":name, "url":url, "ping_interval":parseInt(pingInterval)};
-        let response = await updateEndpoint(endpoint.id, data);
-        onEndpointUpdated(response);
+        try{
+            let response = await updateEndpoint(endpoint.id, data);
+            onEndpointUpdated(response);
+            setIsEditing(false);
+        }
+        catch (e) {
+            alert("Failed to update endpoint");
+        }
+        
+    }
+
+    function handleEdit(){
+        setIsEditing((edit)=>!edit);
     }
 
     return(
         <>
+            {isEditing ? 
             <form onSubmit={handleSubmit}>
                 <label>Name : </label>
                 <input value={name} onChange={handleNameChange}/>
@@ -38,7 +51,8 @@ export default function UpdateEndpointModal({endpoint, onEndpointUpdated}){
                 <input value={pingInterval} onChange={handlePingIntervalChange} type="number"/>
             
                 <button type="submit">Update</button>
-            </form>
+            </form> : <button onClick={handleEdit}>Edit</button>}
+            
         </>
     )
 }
