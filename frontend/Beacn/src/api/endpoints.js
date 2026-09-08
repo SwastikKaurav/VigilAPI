@@ -61,3 +61,16 @@ export async function updateEndpoint(endpoint_id, data){
     }
 }
 
+export async function deleteEndpoint(endpoint_id){
+    let response = await fetch(`http://localhost:8000/endpoints/${endpoint_id}`,{
+        method: "DELETE"
+    })
+    if(response.ok){
+        let data  = await response.json();
+        return data;
+    }
+    else{
+        throw new Error(response.status)
+    }
+}
+
