@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createEndpoint } from "../api/endpoints";
 
-export default function NewEndpointModal(){
+export default function NewEndpointModal({onEndpointCreated}){
     let [name, setName] = useState("");
     let [url, setUrl] = useState("");
     let [pingInterval, setPingInterval] = useState("");
@@ -18,10 +18,11 @@ export default function NewEndpointModal(){
         setPingInterval(e.target.value);
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
         let data = {"name":name, "url":url, "ping_interval":parseInt(pingInterval)};
-        createEndpoint(data);
+        let response = await createEndpoint(data);
+        onEndpointCreated(response);
     }
 
     return(

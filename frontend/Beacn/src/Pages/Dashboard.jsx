@@ -22,10 +22,15 @@ export default function Dashboard(){
         }
         fetchData();
     },[])
+
+    function handleEndpointCreated(newEndpoint){
+        setEndpoint([...endpoints, newEndpoint])
+    }
+
     return(
         <>
 
-            <NewEndpointModal/>
+            <NewEndpointModal onEndpointCreated={handleEndpointCreated}/>
             <EndpointList endpoints_prop={endpoints} loading_prop={loading} error_prop={error}/>
             
         </>
