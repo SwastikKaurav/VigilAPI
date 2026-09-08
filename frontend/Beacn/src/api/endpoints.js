@@ -46,3 +46,18 @@ export async function createEndpoint(data){
     }
 }
 
+export async function updateEndpoint(endpoint_id, data){
+    let response = await fetch(`http://localhost:8000/endpoints/${endpoint_id}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    })
+    if(response.ok){
+        let response_data = await response.json();
+        return response_data;
+    }
+    else{
+        throw new Error(response.status);
+    }
+}
+

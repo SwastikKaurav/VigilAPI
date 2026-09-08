@@ -1,6 +1,7 @@
- import { Link } from "react-router-dom";  
+import { Link } from "react-router-dom";  
+import UpdateEndpointModal from "./UpdateEndpointModal";
 
-export default function EndpointList({endpoints_prop, loading_prop, error_prop}){
+export default function EndpointList({endpoints_prop, loading_prop, error_prop, onEndpointUpdated}){
 
    return (
     <>
@@ -15,6 +16,7 @@ export default function EndpointList({endpoints_prop, loading_prop, error_prop})
                             <p>{endpoint.url}</p>
                             <p>{endpoint.ping_interval}</p>
                         </Link>
+                        <UpdateEndpointModal endpoint={endpoint} onEndpointUpdated={onEndpointUpdated}/>
                     </li>   
                 ))}
             </ul>

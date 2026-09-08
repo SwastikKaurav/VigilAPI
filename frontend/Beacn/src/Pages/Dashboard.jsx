@@ -27,11 +27,17 @@ export default function Dashboard(){
         setEndpoint([...endpoints, newEndpoint])
     }
 
+    function handleEndpointUpdated(updatedEndpoint){
+        setEndpoint(endpoints.map((each)=>
+            each.id === updatedEndpoint.id ? updatedEndpoint:each
+        ))
+    }
+
     return(
         <>
 
             <NewEndpointModal onEndpointCreated={handleEndpointCreated}/>
-            <EndpointList endpoints_prop={endpoints} loading_prop={loading} error_prop={error}/>
+            <EndpointList endpoints_prop={endpoints} loading_prop={loading} error_prop={error} onEndpointUpdated={handleEndpointUpdated}/>
             
         </>
     )
