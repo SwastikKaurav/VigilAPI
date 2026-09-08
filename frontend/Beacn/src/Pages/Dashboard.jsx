@@ -33,11 +33,15 @@ export default function Dashboard(){
         ))
     }
 
+    function handleEndpointDelete(endpoint_id){
+        setEndpoint(endpoints.filter((each)=> each.id !== endpoint_id))
+    }
+
     return(
         <>
 
             <NewEndpointModal onEndpointCreated={handleEndpointCreated}/>
-            <EndpointList endpoints_prop={endpoints} loading_prop={loading} error_prop={error} onEndpointUpdated={handleEndpointUpdated}/>
+            <EndpointList endpoints_prop={endpoints} loading_prop={loading} error_prop={error} onEndpointUpdated={handleEndpointUpdated} onEndpointDelete={handleEndpointDelete}/>
             
         </>
     )
