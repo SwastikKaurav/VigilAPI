@@ -54,5 +54,5 @@ def get_pings_of_endpoint(db : Session, endpoint_id : int):
     return db_ping_result
 
 def get_all_pings(db : Session):
-    db_pings_result = db.query(PingResult).all()
+    db_pings_result = db.query(PingResult)
     return db_pings_result
