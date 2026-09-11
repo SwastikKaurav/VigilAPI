@@ -37,12 +37,13 @@ export default function Dashboard(){
         setEndpoint(endpoints.filter((each)=> each.id !== endpoint_id))
     }
 
+    let endpoint_count = endpoints.length;
+
     return(
         <>
-
+            <p>Endpoints : {endpoint_count}</p>
             <NewEndpointModal onEndpointCreated={handleEndpointCreated}/>
             <EndpointList endpoints_prop={endpoints} loading_prop={loading} error_prop={error} onEndpointUpdated={handleEndpointUpdated} onEndpointDelete={handleEndpointDelete}/>
-            
         </>
     )
 }
