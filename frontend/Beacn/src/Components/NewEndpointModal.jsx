@@ -5,6 +5,7 @@ export default function NewEndpointModal({onEndpointCreated}){
     let [name, setName] = useState("");
     let [url, setUrl] = useState("");
     let [pingInterval, setPingInterval] = useState("");
+    let [isAdding, setIsAdding] = useState(false);
 
     function handleNameChange(e){
         setName(e.target.value);
@@ -23,10 +24,15 @@ export default function NewEndpointModal({onEndpointCreated}){
         let data = {"name":name, "url":url, "ping_interval":parseInt(pingInterval)};
         let response = await createEndpoint(data);
         onEndpointCreated(response);
+        setIsAdding(false);
     }
 
+    function handleAdding(){
+        setIsAdding(true);
+    }
     return(
         <>
+            {isAdding ?
             <form onSubmit={handleSubmit}>
                 <label>Name : </label>
                 <input value={name} onChange={handleNameChange}/>
@@ -39,6 +45,8 @@ export default function NewEndpointModal({onEndpointCreated}){
             
                 <button type="submit">Submit</button>
             </form>
+            : <button onClick={handleAdding}>Add Endpoint</button>
+            }
         </>
     )
 }
